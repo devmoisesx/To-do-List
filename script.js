@@ -1,63 +1,93 @@
 const listElement = document.querySelector(".list");
 const inputText = document.querySelector("#text-item");
-const addBtn = document.querySelector(".add");
-const clearHistoryBtn = document.querySelector(".clearHistory");
+const addBtn = document.querySelector(".btn-add");
+const deleteBtn = document.querySelector(".delete");
 
-let arr = [];
+let arr = {};
 
 function renderTodo() {
-    listElement.innerText = "";
+  listElement.innerText = "";
 
-    arr.forEach((text, index) => {
-        const liElement = document.createElement("li");
-        liElement.innerText = text;
-        listElement.appendChild(liElement);
-    });
+  for (let [index, text] of Object.entries(arr)) {
+    const note = document.createElement("li");
+    note.classList.add("note");
+
+    const noteUtilities = document.createElement("div");
+    noteUtilities.classList.add("utilities-note");
+    
+    const utilitieCheck = document.createElement("input");
+    utilitieCheck.setAttribute("type", "checkbox")
+    utilitieCheck.setAttribute("name", "check")
+    utilitieCheck.setAttribute("id", "check")
+    utilitieCheck.classList.add("check");
+    // utilitieCheck.addEventListener("click", () => checkItem(index));
+    noteUtilities.appendChild(utilitieCheck);
+
+    // const utilitieDelete = document.createElement("span");
+    // utilitieDelete.innerText = "x";
+    // utilitieDelete.classList.add("delete");
+    // utilitieDelete.addEventListener("click", () => deleteItem(index));
+    // noteUtilities.appendChild(utilitieDelete);
+
+    note.appendChild(noteUtilities);
+
+    const noteTitle = document.createElement("div");
+    noteTitle.classList.add("title-note");
+    note.appendChild(noteTitle);
+    const title = document.createElement("h2");
+    title.innerText = text;
+    noteTitle.appendChild(title);
+
+
+    listElement.appendChild(note);
+  }
 }
 
 function addItens() {
-    if (inputText.value) {
-        arr.push(inputText.value);
-    }
-    renderTodo();
-    return saveList();
+  console.log(Object.keys(arr).length);
+  if (inputText.value) {
+    arr[Object.keys(arr).length + 1] = inputText.value;
+  }
+  renderTodo();
+  return saveList();
 }
 
 addBtn.addEventListener("click", addItens);
 
 inputText.addEventListener("keyup", function (e) {
-    var key = e.which || e.keyCode;
-    if (key == 13) {
-        // codigo da tecla enter
-        return addItens();
-    }
+  var key = e.which || e.keyCode;
+  if (key == 13) {
+    // codigo da tecla enter
+    return addItens();
+  }
 });
 
-function deleteItem(pos) {
-    arr.splice(pos, 1);
-    renderTodo();
+function deleteItem(target) {
+  delete arr[target];
+  localStorage.removeItem(target);
+  renderTodo();
+  return saveList();
 }
 
 function saveList() {
-    arr.forEach((text, index) => {
-        localStorage.setItem(index + 1, text);
-    });
+  for (let [index, text] of Object.entries(arr)) {
+    localStorage.setItem(index, text);
+  }
 }
 
 function renderSaveList() {
-    if (localStorage.length > 1) {
-        for (let i = 1; i <= localStorage.length; i++) {
-            arr.push(localStorage[i]);
-        }
+  if (localStorage.length > 0) {
+    const chaves = Object.keys(localStorage);
+    const chavesOrdenadas = Array.from(chaves).sort((a, b) =>
+      a.localeCompare(b)
+    );
+    for (let i = 0; i < chavesOrdenadas.length; i++) {
+      const chave = chavesOrdenadas[i];
+      arr[chave] = localStorage[chave];
     }
+  }
 }
 
 renderSaveList();
-
-clearHistoryBtn.addEventListener("click", () => {
-    localStorage.clear();
-    arr = [];
-    renderTodo();
-});
 
 renderTodo();
