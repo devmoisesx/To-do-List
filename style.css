@@ -1,105 +1,125 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    background-color: #acacac;
-    min-height: 100vh;
-    padding: 34px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-color: #acacac;
+  /* padding: 34px 0; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
-    background-color: #e9ca9c;
-    width: 700px;
-    padding: 25px;
-    border-radius: 15px;
-    overflow-y: hidden;
+  background-color: #ffffff;
+  max-width: 550px;
+  height: 100vh;
+  overflow-y: hidden;
 }
 
-.container > .content-title {
-    margin-bottom: 12px;
-    height: 100%;
+.container > .title-container {
+  padding-top: calc(8px + 1.5625vw);
+  padding-left: calc(4px + 1.5625vw);
+  margin-bottom: calc(8px + 1.5vw);
 }
 
-h1 {
-    font-size: 2rem;
-    color: white;
-    font-family: Arial, Helvetica, sans-serif;
-    margin-bottom: 26px;
+.title-container > h1 {
+  font-size: 1.7rem;
+  color: #333;
+  font-family: Arial, Helvetica, sans-serif;
+  position: relative;
 }
+
+/* .content-title > h1::after {
+    content: "";
+    background-color: #333;
+    width: 100%;
+    height: 4px;
+    position: absolute;
+    left: 0;
+    bottom: -50px;
+} */
 
 label {
-    display: none;
+  display: none;
 }
 
-input {
-    font-size: 12px;
-    color: #000000;
-    background-color: #fef4e5;
-    border: none;
-    padding: 8px;
-    width: 85%;
+.container > .content-add {
+  display: grid;
+  grid-template-columns: 1fr minmax(35px, 15%);
+  align-items: center;
 }
 
-.add {
-    color: white;
-    font-size: 12px;
-    font-weight: 700;
-    background-color: #e39928;
-    padding: 8px;
-    border: none;
-    border-radius: 10px;
+.content-add > #text-item {
+  font-size: 1rem;
+  color: #333;
+  background-color: rgb(232, 232, 232);
+  border: none;
+  padding: 10px 0 10px calc(2px + 1vw);
+  width: 100%;
+  outline: none;
 }
 
-.container > .anotacoes {
-    background-color: #ffe6c0;
-    width: 100%;
-    min-height: 520px;
-    padding: 16px;
+.content-add > .btn-add {
+  color: #333;
+  font-size: 1rem;
+  font-weight: 700;
+  background-color: rgb(206, 206, 206);
+  height: 100%;
+  border: none;
+  cursor: pointer;
 }
 
-.anotacoes > ul {
-    list-style: none;
+.container > .notes {
+  padding: 15px 2vmin;
+  min-height: 520px;
 }
 
-ul > li {
-    margin-bottom: 24px;
-    display: flex;
-    justify-content: start;
-    align-items: center;
+.notes > .list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3vmin;
 }
 
-ul > li:nth-last-child(1) {
-    margin-bottom: 0;
+.list > .note {
+  display: grid;
+  grid-template-columns: minmax(20px, 3%) 1fr;
+  align-items: baseline;
+  position: relative;
 }
 
-li > .title-check {
-    width: 100%;
-    display: flex;
+.note > .title-note {
+  overflow-x: hidden;
 }
 
-.title-check >  #check {
-    width: 16px;
-    margin-right: 8px;
+.title-note > h2 {
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.title-check > h2 {
-    font-size: 18px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 400;
-    border-bottom: 0.5px solid rgba(105, 105, 105, 0.476);
-    width: 100%;
+.note > .utilities-note {
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
 }
 
-li > .utilities {
-    width: 70px;
-    margin-left: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.utilities-note > .delete {
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media (min-width: 800px) {
+    body {
+        padding-top: 34px;
+    }
+
+    .container {
+        height: 700px;
+    }
 }
