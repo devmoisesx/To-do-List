@@ -214,6 +214,7 @@ let array = [];
 function createNote(index, title, description, isChecked) {
   const note = document.createElement("li");
   note.classList.add("note");
+  
 
   const noteUtilities = document.createElement("div");
   noteUtilities.classList.add("utilities-note");
